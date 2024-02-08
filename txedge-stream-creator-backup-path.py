@@ -111,7 +111,7 @@ def backupPath(eqp_edge_id, ave01_edge_id=mwedge_ids['ave01'], lmk02_edge_id=mwe
             port = eqp_srt_caller_port
         elif cont_srt_type == 1:
             address = ""
-            port = cont_srt_port + i
+            port = cont_srt_port
         else:
             print("Error: Wrong EQP SRT Type value")
 
