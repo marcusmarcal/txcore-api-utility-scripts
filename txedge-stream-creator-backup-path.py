@@ -4,6 +4,7 @@ import requests
 import time
 
 api_token = os.environ.get('BEARER_TOKEN_PROD')
+int_passphrase = os.environ.get('INTERNALSRTPASSPHRASE')
 api_headers = {
     'Authorization': 'Bearer {0}'.format(api_token),
     'Content-Type': 'application/json'
@@ -54,18 +55,19 @@ api_urls = {
     'api_url_fra': os.environ.get('APIURLFRA'),
 }
 
-#============ Configurable items START ============
+#============ User Configuration START ============
 
 api_url = api_urls['api_url_ams'] # set API endpoint
 stream_count = 2 # total TXEdge stream count
 sleep_time = 1 # delay between API calls in seconds
 provider_name = 'TEST'
+eqp_edge_id = mwedge_ids['eqp03'] # define which edge the contribution endpoint is set up, i.e. eqp01, eqp02 or eqp03
 cont_passphrase = "cont_testpassphrase" # contribution SRT passphrase
-int_passphrase = "int_testpassphrase" # internal SRT passphrase
 cont_srt_type = 0 # contribution SRT endpoint type (0=Caller, 1=Listener)
 eqp_srt_caller_address = "1.1.1.1" # EQP contribution SRT Caller endpoint address (if cont_srt_type = 0)
 eqp_srt_caller_port = 4444 # EQP contribution SRT Caller endpoint port (if cont_srt_type = 0)
 cont_srt_port = 1000 # SRT port numbering start (Listener type)
+cont_srt_latency = 1000 # EQP contribution SRT endpoint latency
 endpoint_paused = True # applied across all endpoints
 endpoint_passive = False # applied only on regional sources
 feed_thumbnails = True # applied across all streams
@@ -76,14 +78,13 @@ ave_udp_ip_4_oct = "1" # last network address octet
 lmk_udp_ip_4_oct = "1" # last network address octet
 yer_udp_ip_4_oct = "1" # last network address octet
 
-#============ Configurable items END ============
+#============ User Configuration END ============
 
 start_time = time.time()
-
 session = requests.Session()
 session.headers.update(api_headers)
 
-def backupPath(eqp_edge_id=mwedge_ids['eqp03'], ave01_edge_id=mwedge_ids['ave01'], lmk02_edge_id=mwedge_ids['lmk02'], yer02_edge_id=mwedge_ids['yer02']):
+def backupPath(eqp_edge_id, ave01_edge_id=mwedge_ids['ave01'], lmk02_edge_id=mwedge_ids['lmk02'], yer02_edge_id=mwedge_ids['yer02']):
     for i in range(stream_count):
         name_id = '{0:0>2}'.format(i + 1)
 
@@ -130,7 +131,7 @@ def backupPath(eqp_edge_id=mwedge_ids['eqp03'], ave01_edge_id=mwedge_ids['ave01'
                  "address": address,
                  "port": port + i,
                  "hostAddress": eqp_srt_host_address,
-                 "latency": 1000,
+                 "latency": cont_srt_latency,
                  "type": cont_srt_type,
                  "encryption": 32,
                  "passphrase": cont_passphrase
@@ -484,8 +485,7 @@ def backupPath(eqp_edge_id=mwedge_ids['eqp03'], ave01_edge_id=mwedge_ids['ave01'
         time.sleep(sleep_time)
 
 # Call the function
-backupPath()
-
+backupPath(eqp_edge_id)
 
 end_time = time.time()
 execution_time = end_time - start_time
