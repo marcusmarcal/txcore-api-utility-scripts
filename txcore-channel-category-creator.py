@@ -18,18 +18,18 @@ geofence_ids = {
 #============ Configurable items START ============
 
 dry_run = False # True=no API calls are made, results are printed in console; False=normal operation
-channel_count = 2 # total TXCore channel count
+channel_count = 3 # total TXCore channel count
 sleep_time = 1 # delay between API calls in seconds
-provider_name = "TEST"
-channel_number = 9911 # channel numbering start
-category_name = "Test Category"
-#category_id = '60a53a7ed89b3571ddffa339' # use this only if category exists already
-ave_udp_ip_13_oct = "231.216.11" # first 3 network address octets
-lmk_udp_ip_13_oct = "226.1.11" # first 3 network address octets
-yer_udp_ip_13_oct = "228.33.11" # first 3 network address octets
-ave_udp_ip_4_oct = "100" # last network address octet
-lmk_udp_ip_4_oct = "100" # last network address octet
-yer_udp_ip_4_oct = "100" # last network address octet
+provider_name = "SKY_UK" # No need to have _CH
+channel_number = 4864 # channel numbering start
+category_name = "SKY UK"
+category_id = '65ccef8fbd29241036e4e7ac' # use this only if category exists already
+ave_udp_ip_13_oct = "231.216.6" # first 3 network address octets
+lmk_udp_ip_13_oct = "226.1.5" # first 3 network address octets
+yer_udp_ip_13_oct = "228.33.6" # first 3 network address octets
+ave_udp_ip_4_oct = 161 # last network address octet
+lmk_udp_ip_4_oct = 161 # last network address octet
+yer_udp_ip_4_oct = 161 # last network address octet
 
 #============ Configurable items END ============
 
@@ -71,17 +71,17 @@ def createChannels(category_id, dry_run=False):
                     "enabled": True,
                     "sources": [{
                                 "protocol": 0,
-                                "address": f"{ave_udp_ip_13_oct}.{i + 1}:1234",
+                                "address": f"{ave_udp_ip_13_oct}.{ave_udp_ip_4_oct + i}:1234",
                                 "geofence": geofence_ids['ave']
                                 },
                                 {
                                 "protocol": 0,
-                                "address": f"{lmk_udp_ip_13_oct}.{i + 1}:21216",
+                                "address": f"{lmk_udp_ip_13_oct}.{lmk_udp_ip_4_oct + i}:21216",
                                 "geofence": geofence_ids['lmk']
                                 },
                                 {
                                 "protocol": 0,
-                                "address": f"{yer_udp_ip_13_oct}.{i + 1}:1234",
+                                "address": f"{yer_udp_ip_13_oct}.{yer_udp_ip_4_oct + i}:1234",
                                 "geofence": geofence_ids['yer']
                                 }]
 
@@ -102,7 +102,7 @@ def createChannels(category_id, dry_run=False):
         time.sleep(sleep_time)
 
 # Call the functions
-category_id = createCategory(dry_run=dry_run)
+#category_id = createCategory(dry_run=dry_run)
 createChannels(category_id, dry_run=dry_run)
 
 end_time = time.time()
