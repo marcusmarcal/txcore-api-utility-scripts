@@ -58,25 +58,25 @@ api_urls = {
 #============ User Configuration START ============
 
 api_url = api_urls['api_url_ams'] # set API endpoint
-stream_count = 2 # total TXEdge stream count
+stream_count = 3 # total TXEdge stream count
 sleep_time = 1 # delay between API calls in seconds
-provider_name = 'TEST'
+provider_name = 'SKY_UK'
 eqp_edge_id = mwedge_ids['eqp03'] # define which edge the contribution endpoint is set up, i.e. eqp01, eqp02 or eqp03
 cont_passphrase = "cont_testpassphrase" # contribution SRT passphrase
 cont_srt_type = 0 # contribution SRT endpoint type (0=Caller, 1=Listener)
 eqp_srt_caller_address = "1.1.1.1" # EQP contribution SRT Caller endpoint address (if cont_srt_type = 0)
 eqp_srt_caller_port = 4444 # EQP contribution SRT Caller endpoint port (if cont_srt_type = 0)
-cont_srt_port = 1000 # SRT port numbering start (Listener type)
+cont_srt_port = 7254 # SRT port numbering start (Listener type) or the relative port for Output +1000 on Caller mode
 cont_srt_latency = 1000 # EQP contribution SRT endpoint latency
 endpoint_paused = True # applied across all endpoints
 endpoint_passive = False # applied only on regional sources
 feed_thumbnails = True # applied across all streams
-ave_udp_ip_13_oct = "231.216.10" # first 3 network address octets
-lmk_udp_ip_13_oct = "226.1.10" # first 3 network address octets
-yer_udp_ip_13_oct = "228.33.10" # first 3 network address octets
-ave_udp_ip_4_oct = "1" # last network address octet
-lmk_udp_ip_4_oct = "1" # last network address octet
-yer_udp_ip_4_oct = "1" # last network address octet
+ave_udp_ip_13_oct = "231.216.6" # first 3 network address octets
+lmk_udp_ip_13_oct = "226.1.5" # first 3 network address octets
+yer_udp_ip_13_oct = "228.33.6" # first 3 network address octets
+ave_udp_ip_4_oct = 161 # last network address octet
+lmk_udp_ip_4_oct = 161 # last network address octet
+yer_udp_ip_4_oct = 161 # last network address octet
 
 #============ User Configuration END ============
 
@@ -271,7 +271,7 @@ def backupPath(eqp_edge_id, ave01_edge_id=mwedge_ids['ave01'], lmk02_edge_id=mwe
             "protocol": "UDP",
             "stream": str(ave01_stream_id),
             "options": {
-                "address": f"{ave_udp_ip_13_oct}.{i + 1}",
+                "address": f"{ave_udp_ip_13_oct}.{ave_udp_ip_4_oct + i}",
                 "networkInterface": mwedge_net_int['ave01_udp'],
                 "port": 1234,
             },
@@ -369,7 +369,7 @@ def backupPath(eqp_edge_id, ave01_edge_id=mwedge_ids['ave01'], lmk02_edge_id=mwe
             "protocol": "UDP",
             "stream": str(lmk02_stream_id),
             "options": {
-                "address": f"{lmk_udp_ip_13_oct}.{i + 1}",
+                "address": f"{lmk_udp_ip_13_oct}.{lmk_udp_ip_4_oct + i}",
                 "networkInterface": mwedge_net_int['lmk02_udp'],
                 "port": 21216,
             },
@@ -467,7 +467,7 @@ def backupPath(eqp_edge_id, ave01_edge_id=mwedge_ids['ave01'], lmk02_edge_id=mwe
             "protocol": "UDP",
             "stream": str(yer02_stream_id),
             "options": {
-                "address": f"{yer_udp_ip_13_oct}.{i + 1}",
+                "address": f"{yer_udp_ip_13_oct}.{yer_udp_ip_4_oct + i}",
                 "networkInterface": mwedge_net_int['yer02_udp'],
                 "port": 1234,
             },
