@@ -3,6 +3,9 @@ import os
 import requests
 import time
 
+from dotenv import load_dotenv
+load_dotenv()
+
 api_token = os.environ.get('BEARER_TOKEN_PROD')
 int_passphrase = os.environ.get('INTERNALSRTPASSPHRASE')
 api_headers = {
@@ -58,25 +61,25 @@ api_urls = {
 #============ User Configuration START ============
 
 api_url = api_urls['api_url_ams'] # set API endpoint
-stream_count = 3 # total TXEdge stream count
+stream_count = 10 # total TXEdge stream count
 sleep_time = 1 # delay between API calls in seconds
-provider_name = 'SKY_UK'
-eqp_edge_id = mwedge_ids['eqp03'] # define which edge the contribution endpoint is set up, i.e. eqp01, eqp02 or eqp03
-cont_passphrase = "cont_testpassphrase" # contribution SRT passphrase
-cont_srt_type = 0 # contribution SRT endpoint type (0=Caller, 1=Listener)
-eqp_srt_caller_address = "1.1.1.1" # EQP contribution SRT Caller endpoint address (if cont_srt_type = 0)
-eqp_srt_caller_port = 4444 # EQP contribution SRT Caller endpoint port (if cont_srt_type = 0)
-cont_srt_port = 7254 # SRT port numbering start (Listener type) or the relative port for Output +1000 on Caller mode
+provider_name = 'LSP'
+eqp_edge_id = mwedge_ids['eqp01'] # define which edge the contribution endpoint is set up, i.e. eqp01, eqp02 or eqp03
+cont_passphrase = "d4NAIGo4Q0w7CixjwiySriWjAc2SA0xu" # contribution SRT passphrase
+cont_srt_type = 1 # contribution SRT endpoint type (0=Caller, 1=Listener)
+eqp_srt_caller_address = "" # EQP contribution SRT Caller endpoint address (if cont_srt_type = 0)
+eqp_srt_caller_port = 0 # EQP contribution SRT Caller endpoint port (if cont_srt_type = 0)
+cont_srt_port = 3391 # SRT port numbering start (Listener type) or the relative port for Output +1000 on Caller mode
 cont_srt_latency = 1000 # EQP contribution SRT endpoint latency
 endpoint_paused = True # applied across all endpoints
 endpoint_passive = False # applied only on regional sources
 feed_thumbnails = True # applied across all streams
-ave_udp_ip_13_oct = "231.216.6" # first 3 network address octets
-lmk_udp_ip_13_oct = "226.1.5" # first 3 network address octets
-yer_udp_ip_13_oct = "228.33.6" # first 3 network address octets
-ave_udp_ip_4_oct = 161 # last network address octet
-lmk_udp_ip_4_oct = 161 # last network address octet
-yer_udp_ip_4_oct = 161 # last network address octet
+ave_udp_ip_13_oct = "231.216.12" # first 3 network address octets
+lmk_udp_ip_13_oct = "226.1.12" # first 3 network address octets
+yer_udp_ip_13_oct = "228.33.12" # first 3 network address octets
+ave_udp_ip_4_oct = 1 # last network address octet
+lmk_udp_ip_4_oct = 1 # last network address octet
+yer_udp_ip_4_oct = 1 # last network address octet
 
 #============ User Configuration END ============
 

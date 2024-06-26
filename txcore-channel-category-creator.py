@@ -3,6 +3,9 @@ import os
 import requests
 import time
 
+from dotenv import load_dotenv
+load_dotenv()
+
 api_token = os.environ.get('BEARER_TOKEN_STB')
 api_headers = {
     'Authorization': 'Bearer {0}'.format(api_token),
@@ -18,18 +21,18 @@ geofence_ids = {
 #============ Configurable items START ============
 
 dry_run = False # True=no API calls are made, results are printed in console; False=normal operation
-channel_count = 3 # total TXCore channel count
+channel_count = 10 # total TXCore channel count
 sleep_time = 1 # delay between API calls in seconds
-provider_name = "SKY_UK" # No need to have _CH
-channel_number = 4864 # channel numbering start
-category_name = "SKY UK"
-category_id = '65ccef8fbd29241036e4e7ac' # use this only if category exists already
-ave_udp_ip_13_oct = "231.216.6" # first 3 network address octets
-lmk_udp_ip_13_oct = "226.1.5" # first 3 network address octets
-yer_udp_ip_13_oct = "228.33.6" # first 3 network address octets
-ave_udp_ip_4_oct = 161 # last network address octet
-lmk_udp_ip_4_oct = 161 # last network address octet
-yer_udp_ip_4_oct = 161 # last network address octet
+provider_name = "LSP" # No need to have _CH
+channel_number = 1301 # channel numbering start
+category_name = "LSP"
+#category_id = '65ccef8fbd29241036e4e7ac' # use this only if category exists already
+ave_udp_ip_13_oct = "231.216.12" # first 3 network address octets
+lmk_udp_ip_13_oct = "226.1.12" # first 3 network address octets
+yer_udp_ip_13_oct = "228.33.12" # first 3 network address octets
+ave_udp_ip_4_oct = 1 # last network address octet
+lmk_udp_ip_4_oct = 1 # last network address octet
+yer_udp_ip_4_oct = 1 # last network address octet
 
 #============ Configurable items END ============
 
@@ -102,7 +105,7 @@ def createChannels(category_id, dry_run=False):
         time.sleep(sleep_time)
 
 # Call the functions
-#category_id = createCategory(dry_run=dry_run)
+category_id = createCategory(dry_run=dry_run)
 createChannels(category_id, dry_run=dry_run)
 
 end_time = time.time()
