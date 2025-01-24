@@ -21,15 +21,16 @@ geofence_ids = {
 #============ Configurable items START ============
 
 dry_run = False # True=no API calls are made, results are printed in console; False=normal operation
-channel_count = 10 # total TXCore channel count
+channel_count = 1 # total TXCore channel count
 sleep_time = 1 # delay between API calls in seconds
-provider_name = "LSP" # No need to have _CH
-channel_number = 1301 # channel numbering start
-category_name = "LSP"
-#category_id = '65ccef8fbd29241036e4e7ac' # use this only if category exists already
-ave_udp_ip_13_oct = "231.216.12" # first 3 network address octets
-lmk_udp_ip_13_oct = "226.1.12" # first 3 network address octets
-yer_udp_ip_13_oct = "228.33.12" # first 3 network address octets
+first_ch = 1 # First channel of the range. 1 if creating from scratch. 
+provider_name = "EMX" # No need to have _CH
+channel_number = 2801 # channel numbering start
+category_name = "ESPN MX"
+#category_id = '5ea98bc2f9588d32a12deace' # use this only if category exists already
+ave_udp_ip_13_oct = "231.216.28" # first 3 network address octets
+lmk_udp_ip_13_oct = "226.1.28" # first 3 network address octets
+yer_udp_ip_13_oct = "228.33.28" # first 3 network address octets
 ave_udp_ip_4_oct = 1 # last network address octet
 lmk_udp_ip_4_oct = 1 # last network address octet
 yer_udp_ip_4_oct = 1 # last network address octet
@@ -65,7 +66,7 @@ def createCategory(dry_run=False):
 
 def createChannels(category_id, dry_run=False):
     for i in range(channel_count):
-        name_id = '{0:0>2}'.format(i + 1)
+        name_id = '{0:0>2}'.format(first_ch + i)
         request_body = {
                     "number": channel_number + i,
                     "name": f"{provider_name}_CH{name_id}",
