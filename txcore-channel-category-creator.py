@@ -24,13 +24,13 @@ dry_run = False # True=no API calls are made, results are printed in console; Fa
 channel_count = 1 # total TXCore channel count
 sleep_time = 1 # delay between API calls in seconds
 first_ch = 1 # First channel of the range. 1 if creating from scratch. 
-provider_name = "EMX" # No need to have _CH
-channel_number = 2801 # channel numbering start
-category_name = "ESPN MX"
-#category_id = '5ea98bc2f9588d32a12deace' # use this only if category exists already
-ave_udp_ip_13_oct = "231.216.28" # first 3 network address octets
-lmk_udp_ip_13_oct = "226.1.28" # first 3 network address octets
-yer_udp_ip_13_oct = "228.33.28" # first 3 network address octets
+provider_name = "TAT" # No need to have _CH
+channel_number = 3001 # channel numbering start
+category_name = "TATA"
+category_id = '5ea98c5ff9588d32a12deb3d' # use this only if category exists already
+ave_udp_ip_13_oct = "231.216.30" # first 3 network address octets
+lmk_udp_ip_13_oct = "226.1.30" # first 3 network address octets
+yer_udp_ip_13_oct = "228.33.30" # first 3 network address octets
 ave_udp_ip_4_oct = 1 # last network address octet
 lmk_udp_ip_4_oct = 1 # last network address octet
 yer_udp_ip_4_oct = 1 # last network address octet
@@ -106,7 +106,8 @@ def createChannels(category_id, dry_run=False):
         time.sleep(sleep_time)
 
 # Call the functions
-category_id = createCategory(dry_run=dry_run)
+# Comment this line if category already created
+#category_id = createCategory(dry_run=dry_run)
 createChannels(category_id, dry_run=dry_run)
 
 end_time = time.time()
