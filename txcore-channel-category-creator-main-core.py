@@ -6,34 +6,48 @@ import time
 from dotenv import load_dotenv
 load_dotenv()
 
-api_token = os.environ.get('BEARER_TOKEN_STB')
+#api_token = os.environ.get('BEARER_TOKEN_STB')
+api_token = os.environ.get('BEARER_TOKEN_PROD')
+#api_token = os.environ.get('BEARER_TOKEN_DEV')
+
+#api_url_stb = os.environ.get('APIURLSTB')
+api_url_stb = os.environ.get('APIURLPROD')
+#api_url_stb = os.environ.get('APIURLDEV')
+
+passphrase = os.environ.get('INTERNALSRTPASSPHRASE')
+
 api_headers = {
     'Authorization': 'Bearer {0}'.format(api_token),
     'Content-Type': 'application/json'
 }
-api_url_stb = os.environ.get('APIURLSTB')
-geofence_ids = {
-    'ave': os.environ.get('AVEGEOID'),
-    'lmk': os.environ.get('LMKGEOID'),
-    'yer': os.environ.get('YERGEOID'),
-}
+
+
+#geofence_ids = {
+#    'ave': os.environ.get('AVEGEOID'),
+#    'lmk': os.environ.get('LMKGEOID'),
+#    'yer': os.environ.get('YERGEOID'),
+#    
+#}
 
 #============ Configurable items START ============
 
 dry_run = False # True=no API calls are made, results are printed in console; False=normal operation
-channel_count = 20 # total TXCore channel count
+channel_count = 21 # total TXCore channel count
 sleep_time = 1 # delay between API calls in seconds
-first_ch = 31 # First channel of the range. 1 if creating from scratch. 
-provider_name = "ADC" # No need to have _CH
-channel_number = 51 # channel numbering start
-category_name = "ADHOC"
-category_id = '603f87befcb1184432a4a564' # use this only if category exists already
-ave_udp_ip_13_oct = "231.216.10" # first 3 network address octets
-lmk_udp_ip_13_oct = "226.1.10" # first 3 network address octets
-yer_udp_ip_13_oct = "228.33.10" # first 3 network address octets
-ave_udp_ip_4_oct = 31 # last network address octet
-lmk_udp_ip_4_oct = 31 # last network address octet
-yer_udp_ip_4_oct = 31 # last network address octet
+first_ch = 1 # First channel of the range. 1 if creating from scratch. 
+srt_source_ip = '194.76.59.21'
+srt_first_port = 8101
+provider_name = "XRU" # 3 letters acronym - No need to have _CH
+channel_number = 7001 # channel numbering start
+category_name = "Xeatre Rugby"
+category_id = '68b846b1d126ad1c4638ef07' # use this only if category exists already
+
+#ave_udp_ip_13_oct = "231.216.3" # first 3 network address octets
+#lmk_udp_ip_13_oct = "226.1.2" # first 3 network address octets
+#yer_udp_ip_13_oct = "228.33.3" # first 3 network address octets
+#ave_udp_ip_4_oct = 243 # last network address octet
+#lmk_udp_ip_4_oct = 253 # last network address octet
+#yer_udp_ip_4_oct = 243 # last network address octet
 
 #============ Configurable items END ============
 
@@ -74,19 +88,15 @@ def createChannels(category_id, dry_run=False):
                     "category": category_id,
                     "enabled": True,
                     "sources": [{
-                                "protocol": 0,
-                                "address": f"{ave_udp_ip_13_oct}.{ave_udp_ip_4_oct + i}:1234",
-                                "geofence": geofence_ids['ave']
-                                },
-                                {
-                                "protocol": 0,
-                                "address": f"{lmk_udp_ip_13_oct}.{lmk_udp_ip_4_oct + i}:21216",
-                                "geofence": geofence_ids['lmk']
-                                },
-                                {
-                                "protocol": 0,
-                                "address": f"{yer_udp_ip_13_oct}.{yer_udp_ip_4_oct + i}:1234",
-                                "geofence": geofence_ids['yer']
+                                "protocol": 6,
+                                "address": f"{srt_source_ip}:{srt_first_port + i}",
+                                "options": {
+                                    "srt": {
+                                        "encrypted": True,
+                                        "passphrase": passphrase
+                                    }
+                                }
+                                #"geofence": geofence_ids['ave'] # Not needed for this workflow, in principle
                                 }]
 
         }
