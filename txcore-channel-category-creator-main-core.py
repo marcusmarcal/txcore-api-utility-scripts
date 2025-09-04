@@ -42,13 +42,6 @@ channel_number = 7001 # channel numbering start
 category_name = "Xeatre Rugby"
 category_id = '68b846b1d126ad1c4638ef07' # use this only if category exists already
 
-#ave_udp_ip_13_oct = "231.216.3" # first 3 network address octets
-#lmk_udp_ip_13_oct = "226.1.2" # first 3 network address octets
-#yer_udp_ip_13_oct = "228.33.3" # first 3 network address octets
-#ave_udp_ip_4_oct = 243 # last network address octet
-#lmk_udp_ip_4_oct = 253 # last network address octet
-#yer_udp_ip_4_oct = 243 # last network address octet
-
 #============ Configurable items END ============
 
 start_time = time.time()
