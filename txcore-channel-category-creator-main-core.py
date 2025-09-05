@@ -35,9 +35,9 @@ dry_run = False # True=no API calls are made, results are printed in console; Fa
 channel_count = 20 # total TXCore channel count
 sleep_time = 1 # delay between API calls in seconds
 first_ch = 1 # First channel of the range. 1 if creating from scratch. 
-#srt_source_ip = '194.76.59.20'
-#srt_source_ip = '194.76.59.21'
-srt_source_ip = '194.76.59.22'
+#srt_source_ip = '194.76.59.20' # INX01
+#srt_source_ip = '194.76.59.21' # INX02
+srt_source_ip = '194.76.59.22' # INX03
 srt_first_port = 4841
 provider_name = "ADC" # 3 letters acronym - No need to have _CH
 channel_number = 21 # channel numbering start
