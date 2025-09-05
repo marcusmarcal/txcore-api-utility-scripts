@@ -32,15 +32,17 @@ api_headers = {
 #============ Configurable items START ============
 
 dry_run = False # True=no API calls are made, results are printed in console; False=normal operation
-channel_count = 21 # total TXCore channel count
+channel_count = 20 # total TXCore channel count
 sleep_time = 1 # delay between API calls in seconds
 first_ch = 1 # First channel of the range. 1 if creating from scratch. 
-srt_source_ip = '194.76.59.21'
-srt_first_port = 8101
-provider_name = "XRU" # 3 letters acronym - No need to have _CH
-channel_number = 7001 # channel numbering start
-category_name = "Xeatre Rugby"
-category_id = '68b846b1d126ad1c4638ef07' # use this only if category exists already
+#srt_source_ip = '194.76.59.20'
+#srt_source_ip = '194.76.59.21'
+srt_source_ip = '194.76.59.22'
+srt_first_port = 4841
+provider_name = "ADC" # 3 letters acronym - No need to have _CH
+channel_number = 21 # channel numbering start
+category_name = "ADHOC"
+category_id = '603f87befcb1184432a4a564' # use this only if category exists already
 
 #============ Configurable items END ============
 
